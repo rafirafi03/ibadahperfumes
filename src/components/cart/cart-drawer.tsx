@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from "@/components/ui/sheet";
+import { PRODUCT_IMAGE_FALLBACK } from "@/lib/images";
 import { useCartStore } from "@/store/cart-store";
 import { formatPrice } from "@/utils/format";
 import { motion, AnimatePresence } from "framer-motion";
@@ -47,7 +48,7 @@ export function CartDrawer() {
                   className="flex gap-4 py-4 border-b border-border/40 last:border-0"
                 >
                   <div className="relative h-24 w-20 rounded-sm overflow-hidden bg-muted shrink-0">
-                    <Image src={item.imageUrl || "/placeholder-product.jpg"} alt={item.name} fill className="object-cover" />
+                    <Image src={item.imageUrl || PRODUCT_IMAGE_FALLBACK} alt={item.name} fill className="object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <Link href={`/products/${item.slug}`} className="font-medium text-sm hover:text-primary line-clamp-2" onClick={() => setCartOpen(false)}>

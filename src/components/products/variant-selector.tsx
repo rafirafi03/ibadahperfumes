@@ -29,7 +29,7 @@ export function VariantSelector({
           <p className="label-caps mb-3">
             Color — <span className="text-foreground normal-case tracking-normal font-medium">{selectedColor}</span>
           </p>
-          <div className="flex flex-wrap gap-2.5">
+          <div className="flex flex-wrap gap-3">
             {colors.map((color: ProductColor) => {
               const inStock = sizes.some((size) => getVariantStock(product, size, color.name) > 0);
               const isSelected = selectedColor === color.name;
@@ -43,15 +43,18 @@ export function VariantSelector({
                   aria-label={`Color ${color.name}`}
                   aria-pressed={isSelected}
                   className={cn(
-                    "relative h-9 w-9 rounded-full border-2 transition-all",
-                    isSelected ? "border-primary scale-110 shadow-sm" : "border-border/80 hover:border-primary/50",
+                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+                    isSelected ? "border-primary" : "border-transparent hover:border-primary/40",
                     !inStock && "opacity-40 cursor-not-allowed"
                   )}
-                  style={{ backgroundColor: color.hex }}
                 >
-                  {isSelected && (
-                    <span className="absolute inset-0 rounded-full ring-2 ring-offset-2 ring-primary ring-offset-background" />
-                  )}
+                  <span
+                    className={cn(
+                      "block h-7 w-7 rounded-full border border-black/10",
+                      isSelected && "ring-2 ring-primary ring-offset-1 ring-offset-background"
+                    )}
+                    style={{ backgroundColor: color.hex }}
+                  />
                 </button>
               );
             })}
@@ -77,7 +80,7 @@ export function VariantSelector({
                 disabled={!available}
                 onClick={() => onSizeChange(size)}
                 className={cn(
-                  "min-w-[2.75rem] h-10 px-3 rounded-full border text-sm font-medium transition-all",
+                  "min-w-[2.75rem] h-10 px-3 rounded-full border text-sm font-medium transition-colors",
                   isSelected
                     ? "bg-primary text-primary-foreground border-primary"
                     : "bg-background border-border/80 hover:border-primary/40 text-foreground",

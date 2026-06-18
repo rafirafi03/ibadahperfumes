@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCartStore } from "@/store/cart-store";
 import { useWishlistStore } from "@/store/wishlist-store";
 import { formatPrice, calculateDiscount, getProductImageUrl } from "@/utils/format";
+import { productHasVariants } from "@/lib/dress-variants";
 import type { Product } from "@/types";
 import { toast } from "sonner";
 
@@ -28,6 +29,7 @@ export function ProductQuickView({ product, open, onClose }: ProductQuickViewPro
 
   const imageUrl = getProductImageUrl(product);
   const discount = calculateDiscount(product.price, product.compareAtPrice);
+  const hasVariants = productHasVariants(product);
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -37,8 +39,8 @@ export function ProductQuickView({ product, open, onClose }: ProductQuickViewPro
         </DialogHeader>
         <ScrollArea className="max-h-[min(90vh,800px)]">
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="relative aspect-square md:aspect-auto md:min-h-[320px] bg-muted">
-              <Image src={imageUrl} alt={product.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+            <div className="relative aspect-[3/4] max-h-[45vh] md:max-h-none md:aspect-auto md:min-h-[320px] bg-muted">
+              <Image src={imageUrl} alt={product.name} fill className="object-cover object-top" sizes="(max-width: 768px) 100vw, 50vw" />
               {discount > 0 && (
                 <Badge className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-accent text-accent-foreground border-0 rounded-full">
                   -{discount}%
@@ -60,14 +62,22 @@ export function ProductQuickView({ product, open, onClose }: ProductQuickViewPro
                 <p className="text-muted-foreground text-sm mb-6 line-clamp-4 sm:line-clamp-none">{product.shortDescription}</p>
               )}
               <div className="mt-auto space-y-3 pt-4">
-                <Button className="w-full h-11" onClick={() => {
-                  addItem({ productId: product._id, name: product.name, price: product.price, imageUrl, slug: product.slug.current, stock: product.stock });
-                  setCartOpen(true);
-                  onClose();
-                  toast.success("Added to cart");
-                }}>
-                  <ShoppingBag className="h-4 w-4 mr-2" /> Add to Cart
-                </Button>
+                {hasVariants ? (
+                  <Button className="w-full h-11 rounded-full" asChild>
+                    <Link href={`/products/${product.slug.current}`} onClick={onClose}>
+                      Select Size &amp; Colour
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button className="w-full h-11 rounded-full" onClick={() => {
+                    addItem({ productId: product._id, name: product.name, price: product.price, imageUrl, slug: product.slug.current, stock: product.stock });
+                    setCartOpen(true);
+                    onClose();
+                    toast.success("Added to your bag");
+                  }}>
+                    <ShoppingBag className="h-4 w-4 mr-2" /> Add to Bag
+                  </Button>
+                )}
                 <div className="flex gap-2">
                   <Button variant="outline" className="flex-1 h-10" asChild>
                     <Link href={`/products/${product.slug.current}`} onClick={onClose}>View Details</Link>

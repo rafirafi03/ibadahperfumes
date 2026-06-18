@@ -6,17 +6,23 @@ import { Grid3x3, List, SlidersHorizontal } from "lucide-react";
 import { Container, SectionHeading } from "@/components/shared/container";
 import { ProductCard } from "@/components/products/product-card";
 import { ProductQuickView } from "@/components/products/product-quick-view";
+import {
+  ProductFilters,
+  ActiveFilterChips,
+  type ProductFilterState,
+} from "@/components/products/product-filters";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
 import { getProducts } from "@/services/product-service";
 import { getCategories, getBrands } from "@/services/content-service";
 import { SORT_OPTIONS, ITEMS_PER_PAGE } from "@/lib/constants";
 import type { Product, Category, Brand } from "@/types";
 import { cn } from "@/lib/utils";
+
+const DEFAULT_PRICE: [number, number] = [0, 15000];
 
 function ProductsContent() {
   const searchParams = useSearchParams();
@@ -28,23 +34,43 @@ function ProductsContent() {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const [search, setSearch] = useState(searchParams.get("search") || "");
-  const [category, setCategory] = useState(searchParams.get("category") || "");
-  const [brand, setBrand] = useState(searchParams.get("brand") || "");
+  const [filters, setFilters] = useState<ProductFilterState>({
+    search: searchParams.get("search") || "",
+    category: searchParams.get("category") || "",
+    brand: searchParams.get("brand") || "",
+    priceRange: DEFAULT_PRICE,
+  });
   const [sort, setSort] = useState(searchParams.get("sort") || "newest");
   const [page, setPage] = useState(1);
-  const [priceRange, setPriceRange] = useState([0, 15000]);
+
+  const activeFilterCount = [
+    filters.search,
+    filters.category,
+    filters.brand,
+    filters.priceRange[0] > 0 || filters.priceRange[1] < 15000,
+  ].filter(Boolean).length;
+
+  const patchFilters = (patch: Partial<ProductFilterState>) => {
+    setFilters((prev) => ({ ...prev, ...patch }));
+    setPage(1);
+  };
+
+  const clearFilters = () => {
+    setFilters({ search: "", category: "", brand: "", priceRange: DEFAULT_PRICE });
+    setPage(1);
+  };
 
   const fetchProducts = useCallback(async () => {
     setLoading(true);
     const result = await getProducts({
-      search: search || undefined,
-      category: category || undefined,
-      brand: brand || undefined,
+      search: filters.search || undefined,
+      category: filters.category || undefined,
+      brand: filters.brand || undefined,
       sort: sort as "newest" | "price-asc" | "price-desc" | "name" | "popular",
-      minPrice: priceRange[0],
-      maxPrice: priceRange[1],
+      minPrice: filters.priceRange[0],
+      maxPrice: filters.priceRange[1],
       page,
       limit: ITEMS_PER_PAGE,
     });
@@ -52,7 +78,7 @@ function ProductsContent() {
     setTotal(result.total);
     setTotalPages(result.totalPages);
     setLoading(false);
-  }, [search, category, brand, sort, page, priceRange]);
+  }, [filters, sort, page]);
 
   useEffect(() => {
     getCategories().then(setCategories);
@@ -63,119 +89,146 @@ function ProductsContent() {
     fetchProducts();
   }, [fetchProducts]);
 
-  const FilterPanel = () => (
-    <div className="space-y-6">
-      <div>
-        <h4 className="font-medium mb-3">Search</h4>
-        <Input placeholder="Search..." value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }} />
-      </div>
-      <div>
-        <h4 className="font-medium mb-3">Category</h4>
-        <Select value={category} onValueChange={(v) => { setCategory(!v || v === "all" ? "" : v); setPage(1); }}>
-          <SelectTrigger><SelectValue placeholder="All Categories" /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Categories</SelectItem>
-            {categories.map((c) => (
-              <SelectItem key={c._id} value={c.slug.current}>{c.name}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <div>
-        <h4 className="font-medium mb-3">Brand</h4>
-        <Select value={brand} onValueChange={(v) => { setBrand(!v || v === "all" ? "" : v); setPage(1); }}>
-          <SelectTrigger><SelectValue placeholder="All Brands" /></SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Brands</SelectItem>
-            {brands.map((b) => (
-              <SelectItem key={b._id} value={b.slug.current}>{b.name}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <div>
-        <h4 className="font-medium mb-3">Price Range</h4>
-        <Slider
-          min={0}
-          max={15000}
-          step={100}
-          value={priceRange}
-          onValueChange={(v) => { if (Array.isArray(v)) { setPriceRange(v); setPage(1); } }}
-          className="mb-2"
-        />
-        <div className="flex justify-between text-sm text-muted-foreground">
-          <span>₹{priceRange[0].toLocaleString()}</span>
-          <span>₹{priceRange[1].toLocaleString()}</span>
-        </div>
-      </div>
-    </div>
-  );
-
   return (
     <Container className="py-6 sm:py-8">
-      <SectionHeading title="Shop All Products" subtitle={`${total} products found`} align="left" className="mb-8 sm:mb-10" />
+      <SectionHeading
+        title="All Dresses"
+        subtitle={`${total} piece${total === 1 ? "" : "s"} in our collection`}
+        label="Shop"
+        align="left"
+        className="mb-6 sm:mb-8"
+      />
 
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 min-w-0">
-        <aside className="hidden lg:block w-64 shrink-0">
-          <FilterPanel />
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 min-w-0">
+        {/* Desktop sidebar */}
+        <aside className="hidden lg:block w-72 xl:w-80 shrink-0">
+          <div className="sticky top-24">
+            <ProductFilters
+              filters={filters}
+              categories={categories}
+              brands={brands}
+              onChange={patchFilters}
+              onClear={clearFilters}
+              variant="sidebar"
+            />
+          </div>
         </aside>
 
         <div className="flex-1 min-w-0">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-3">
-            <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto">
-              <Sheet>
-                <SheetTrigger className={cn(buttonVariants({ variant: "outline", size: "sm" }), "lg:hidden shrink-0 rounded-full")}>
-                  <SlidersHorizontal className="h-4 w-4 sm:mr-1" />
-                  <span className="sr-only sm:not-sr-only sm:inline">Filters</span>
+          {/* Toolbar */}
+          <div className="flex flex-col gap-3 mb-4 sm:mb-6">
+            <div className="flex items-center gap-2 min-w-0">
+              <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
+                <SheetTrigger
+                  className={cn(
+                    buttonVariants({ variant: "outline", size: "sm" }),
+                    "lg:hidden shrink-0 rounded-full h-9 gap-1.5"
+                  )}
+                >
+                  <SlidersHorizontal className="h-4 w-4" />
+                  Filters
+                  {activeFilterCount > 0 && (
+                    <Badge className="h-5 min-w-5 px-1 rounded-full bg-primary text-primary-foreground text-[10px]">
+                      {activeFilterCount}
+                    </Badge>
+                  )}
                 </SheetTrigger>
-                <SheetContent side="left" className="w-full max-w-[min(100vw,20rem)] overflow-y-auto">
-                  <SheetHeader><SheetTitle>Filters</SheetTitle></SheetHeader>
-                  <div className="mt-6"><FilterPanel /></div>
+                <SheetContent side="left" className="w-full max-w-[min(100vw,22rem)] overflow-y-auto p-0">
+                  <SheetHeader className="p-5 pb-0 border-b border-border/60">
+                    <SheetTitle className="font-heading text-primary text-left">Filter Dresses</SheetTitle>
+                  </SheetHeader>
+                  <div className="p-5">
+                    <ProductFilters
+                      filters={filters}
+                      categories={categories}
+                      brands={brands}
+                      onChange={patchFilters}
+                      onClear={clearFilters}
+                      variant="sheet"
+                    />
+                  </div>
+                  <div className="sticky bottom-0 p-4 border-t border-border/60 bg-background">
+                    <Button className="w-full rounded-full" onClick={() => setFiltersOpen(false)}>
+                      Show {total} results
+                    </Button>
+                  </div>
                 </SheetContent>
               </Sheet>
+
               <Select value={sort} onValueChange={(v) => { if (v) { setSort(v); setPage(1); } }}>
-                <SelectTrigger className="w-full sm:w-44 min-w-0 flex-1 sm:flex-none"><SelectValue /></SelectTrigger>
+                <SelectTrigger className="flex-1 sm:flex-none sm:w-48 h-9 rounded-full min-w-0">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
                 <SelectContent>
                   {SORT_OPTIONS.map((o) => (
                     <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
+
+              <div className="flex items-center gap-0.5 shrink-0 ml-auto sm:ml-0 border border-border/60 rounded-full p-0.5 bg-card">
+                <Button
+                  variant={viewMode === "grid" ? "secondary" : "ghost"}
+                  size="icon"
+                  className="h-8 w-8 rounded-full"
+                  onClick={() => setViewMode("grid")}
+                  aria-label="Grid view"
+                >
+                  <Grid3x3 className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant={viewMode === "list" ? "secondary" : "ghost"}
+                  size="icon"
+                  className="h-8 w-8 rounded-full"
+                  onClick={() => setViewMode("list")}
+                  aria-label="List view"
+                >
+                  <List className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
-            <div className="hidden sm:flex items-center gap-1 shrink-0">
-              <Button variant={viewMode === "grid" ? "secondary" : "ghost"} size="icon" onClick={() => setViewMode("grid")} aria-label="Grid view">
-                <Grid3x3 className="h-4 w-4" />
-              </Button>
-              <Button variant={viewMode === "list" ? "secondary" : "ghost"} size="icon" onClick={() => setViewMode("list")} aria-label="List view">
-                <List className="h-4 w-4" />
-              </Button>
-            </div>
+
+            <ActiveFilterChips
+              filters={filters}
+              categories={categories}
+              brands={brands}
+              onChange={patchFilters}
+            />
           </div>
 
           {loading ? (
-            <div className={cn("grid gap-3 sm:gap-4 md:gap-6", viewMode === "grid" ? "grid-cols-2 md:grid-cols-3" : "grid-cols-1")}>
+            <div className={cn("grid gap-3 sm:gap-5", viewMode === "grid" ? "grid-cols-2 md:grid-cols-3" : "grid-cols-1")}>
               {Array.from({ length: 6 }).map((_, i) => (
-                <Skeleton key={i} className="aspect-[3/4] rounded-xl sm:rounded-2xl" />
+                <Skeleton key={i} className={viewMode === "grid" ? "aspect-[3/4] rounded-xl" : "h-36 rounded-xl"} />
               ))}
             </div>
           ) : products.length === 0 ? (
-            <div className="text-center py-16 sm:py-20 text-muted-foreground">No products found</div>
+            <div className="text-center py-16 sm:py-20">
+              <p className="font-heading text-xl text-primary mb-2">No dresses found</p>
+              <p className="text-muted-foreground text-sm mb-6">Try adjusting your filters</p>
+              <Button variant="outline" className="rounded-full" onClick={clearFilters}>Clear filters</Button>
+            </div>
           ) : (
-            <div className={cn("grid gap-3 sm:gap-4 md:gap-6", viewMode === "grid" ? "grid-cols-2 md:grid-cols-3" : "grid-cols-1")}>
+            <div className={cn("grid gap-3 sm:gap-5", viewMode === "grid" ? "grid-cols-2 md:grid-cols-3" : "grid-cols-1")}>
               {products.map((product) => (
-                <ProductCard key={product._id} product={product} onQuickView={setQuickViewProduct} />
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  layout={viewMode}
+                  onQuickView={setQuickViewProduct}
+                />
               ))}
             </div>
           )}
 
           {totalPages > 1 && (
-            <div className="flex justify-center gap-1.5 sm:gap-2 mt-6 sm:mt-8 overflow-x-auto pb-2 -mx-1 px-1">
+            <div className="flex justify-center gap-1.5 sm:gap-2 mt-8 overflow-x-auto pb-2 scrollbar-none">
               {Array.from({ length: totalPages }).map((_, i) => (
                 <Button
                   key={i}
                   variant={page === i + 1 ? "default" : "outline"}
                   size="sm"
-                  className="shrink-0 min-w-9"
+                  className="shrink-0 min-w-9 rounded-full"
                   onClick={() => setPage(i + 1)}
                 >
                   {i + 1}
@@ -193,7 +246,7 @@ function ProductsContent() {
 
 export default function ProductsPage() {
   return (
-    <Suspense fallback={<Container className="py-8"><Skeleton className="h-96 w-full" /></Container>}>
+    <Suspense fallback={<Container className="py-8"><Skeleton className="h-96 w-full rounded-xl" /></Container>}>
       <ProductsContent />
     </Suspense>
   );

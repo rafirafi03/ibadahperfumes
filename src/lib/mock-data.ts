@@ -59,7 +59,7 @@ export const mockCategories: Category[] = [
   { _id: "cat-3", name: "Maxi Dresses", slug: slug("maxi-dresses"), description: "Flowing floor-length elegance", featured: true, order: 3, productCount: 7, imageUrl: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600" },
   { _id: "cat-4", name: "Cocktail Dresses", slug: slug("cocktail-dresses"), description: "Chic dresses for celebrations", featured: true, order: 4, productCount: 6, imageUrl: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=600" },
   { _id: "cat-5", name: "Wedding Guest", slug: slug("wedding-guest"), description: "Graceful looks for ceremonies", featured: false, order: 5, productCount: 5, imageUrl: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600" },
-  { _id: "cat-6", name: "Party Wear", slug: slug("party-wear"), description: "Sparkle-ready party dresses", featured: false, order: 6, productCount: 6, imageUrl: "https://images.unsplash.com/photo-1612336307429-8a0d7366e2e8?w=600" },
+  { _id: "cat-6", name: "Party Wear", slug: slug("party-wear"), description: "Sparkle-ready party dresses", featured: false, order: 6, productCount: 6, imageUrl: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600" },
 ];
 
 export const mockBrands: Brand[] = [
@@ -125,7 +125,7 @@ export const mockProducts: Product[] = [
     shortDescription: "All-over sequin mini with sheer sleeves",
     description: "Turn heads in antique gold sequins. This party-ready mini features sheer mesh sleeves, a fitted bodice, and a flared skirt that catches every light.",
     price: 7999, stock: 16, status: "active", featured: true,
-    imageUrl: "https://images.unsplash.com/photo-1612336307429-8a0d7366e2e8?w=800",
+    imageUrl: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=800",
     category: mockCategories[5], brand: mockBrands[1],
     sizes, colors: [dressColors.gold, dressColors.noir],
     variantStock: buildVariantStock(sizes, [dressColors.gold, dressColors.noir], 4),
@@ -158,7 +158,7 @@ export const mockProducts: Product[] = [
     shortDescription: "Wrap-front maxi in sustainable viscose",
     description: "Our signature forest green wrap maxi flatters every figure. Tie waist, flutter sleeve, and a sweeping skirt that moves with you.",
     price: 5999, stock: 22, status: "active",
-    imageUrl: "https://images.unsplash.com/photo-1572804013309-59aaffb1eacb?w=800",
+    imageUrl: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800",
     category: mockCategories[2], brand: mockBrands[2],
     sizes: [...DRESS_SIZES], colors: [dressColors.emerald, dressColors.noir],
     variantStock: buildVariantStock([...DRESS_SIZES], [dressColors.emerald, dressColors.noir]),
@@ -169,7 +169,7 @@ export const mockProducts: Product[] = [
     shortDescription: "Structured brocade with square neckline",
     description: "Rich brocade in antique gold with a structured bodice and A-line skirt. A statement piece for festive gatherings and cocktail events.",
     price: 8499, compareAtPrice: 10499, stock: 10, status: "active", featured: true,
-    imageUrl: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d5ad?w=800",
+    imageUrl: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800",
     category: mockCategories[3], brand: mockBrands[1],
     sizes, colors: [dressColors.gold, dressColors.emerald],
     variantStock: buildVariantStock(sizes, [dressColors.gold, dressColors.emerald], 2),

@@ -3,7 +3,6 @@
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Minus, Plus, ShoppingBag, Heart, Share2, MessageCircle, Star, Check, X, Ruler } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { ProductCard } from "@/components/products/product-card";
@@ -21,6 +20,7 @@ import { useWishlistStore } from "@/store/wishlist-store";
 import { createSingleOrderAction } from "@/actions/order-actions";
 import { formatPrice, calculateDiscount, getProductImageUrl } from "@/utils/format";
 import { getProductSizes, getVariantStock, productHasVariants } from "@/lib/dress-variants";
+import { cn } from "@/lib/utils";
 import type { Product, Review } from "@/types";
 import { toast } from "sonner";
 
@@ -145,29 +145,59 @@ export function ProductDetail({ product, reviews, relatedProducts }: ProductDeta
         <span className="text-foreground truncate min-w-0">{product.name}</span>
       </nav>
 
-      <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-14">
-        <div>
-          <motion.div
-            className="relative aspect-[3/4] overflow-hidden rounded-sm sm:rounded-md bg-muted cursor-zoom-in ring-1 ring-border/40"
+      <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-14 items-start">
+        <div className="lg:sticky lg:top-24 space-y-3">
+          <div className="relative w-full max-h-[min(70vh,520px)] sm:max-h-[min(75vh,600px)] aspect-[3/4] overflow-hidden rounded-lg bg-muted ring-1 ring-border/40 cursor-zoom-in"
             onClick={() => setZoomOpen(true)}
-            whileHover={{ scale: 1.005 }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === "Enter" && setZoomOpen(true)}
           >
-            <Image src={images[selectedImage]} alt={product.name} fill className="object-cover" priority />
+            <Image
+              src={images[selectedImage]}
+              alt={product.name}
+              fill
+              className="object-cover object-top"
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
             {discount > 0 && (
               <Badge className="absolute top-4 left-4 rounded-full bg-accent text-accent-foreground border-0 uppercase tracking-wider text-[10px]">
                 -{discount}%
               </Badge>
             )}
-          </motion.div>
+          </div>
+          {product.colors && product.colors.length > 1 && (
+            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+              {product.colors.map((color) => (
+                <button
+                  key={color.name}
+                  type="button"
+                  onClick={() => setSelectedColor(color.name)}
+                  className={cn(
+                    "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+                    selectedColor === color.name ? "border-primary" : "border-transparent"
+                  )}
+                  title={color.name}
+                >
+                  <span
+                    className="h-6 w-6 rounded-full border border-black/10"
+                    style={{ backgroundColor: color.hex }}
+                  />
+                </button>
+              ))}
+            </div>
+          )}
           {images.length > 1 && (
-            <div className="flex gap-2 mt-3 sm:mt-4 overflow-x-auto pb-1">
+            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
               {images.map((img, i) => (
                 <button
                   key={i}
+                  type="button"
                   onClick={() => setSelectedImage(i)}
-                  className={`relative h-20 w-16 sm:h-24 sm:w-20 rounded-sm overflow-hidden border-2 transition-colors shrink-0 ${i === selectedImage ? "border-primary" : "border-transparent"}`}
+                  className={`relative h-16 w-14 sm:h-20 sm:w-16 rounded-md overflow-hidden border-2 transition-colors shrink-0 ${i === selectedImage ? "border-primary" : "border-border/40"}`}
                 >
-                  <Image src={img} alt="" fill className="object-cover" />
+                  <Image src={img} alt="" fill className="object-cover" sizes="64px" />
                 </button>
               ))}
             </div>

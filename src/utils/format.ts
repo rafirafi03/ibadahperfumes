@@ -1,4 +1,5 @@
 import { CURRENCY_SYMBOL } from "@/lib/constants";
+import { PRODUCT_IMAGE_FALLBACK } from "@/lib/images";
 
 export function formatPrice(price: number): string {
   return `${CURRENCY_SYMBOL}${price.toLocaleString("en-IN")}`;
@@ -31,7 +32,7 @@ export function debounce<T extends (...args: Parameters<T>) => void>(fn: T, dela
 
 export function getProductImageUrl(product: { imageUrl?: string; images?: unknown[] }): string {
   if (product.imageUrl) return product.imageUrl;
-  return "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop";
+  return PRODUCT_IMAGE_FALLBACK;
 }
 
 export function truncate(str: string, length: number): string {

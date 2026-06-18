@@ -18,9 +18,10 @@ interface ProductCardProps {
   product: Product;
   onQuickView?: (product: Product) => void;
   className?: string;
+  layout?: "grid" | "list";
 }
 
-export function ProductCard({ product, onQuickView, className }: ProductCardProps) {
+export function ProductCard({ product, onQuickView, className, layout = "grid" }: ProductCardProps) {
   const addItem = useCartStore((s) => s.addItem);
   const setCartOpen = useCartStore((s) => s.setCartOpen);
   const { toggleItem, isInWishlist } = useWishlistStore();
@@ -28,9 +29,11 @@ export function ProductCard({ product, onQuickView, className }: ProductCardProp
   const hasVariants = productHasVariants(product);
   const discount = calculateDiscount(product.price, product.compareAtPrice);
   const imageUrl = getProductImageUrl(product);
+  const productHref = `/products/${product.slug.current}`;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     if (hasVariants) return;
     addItem({
       productId: product._id,
@@ -44,112 +47,158 @@ export function ProductCard({ product, onQuickView, className }: ProductCardProp
     toast.success("Added to your bag");
   };
 
+  const handleQuickView = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onQuickView?.(product);
+  };
+
+  const handleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleItem(product._id);
+    toast.success(inWishlist ? "Removed from wishlist" : "Added to wishlist");
+  };
+
+  if (layout === "list") {
+    return (
+      <article className={cn("group flex gap-4 p-3 sm:p-4 rounded-xl border border-border/60 bg-card", className)}>
+        <Link href={productHref} className="relative h-32 w-24 sm:h-40 sm:w-32 shrink-0 overflow-hidden rounded-lg bg-muted">
+          <Image src={imageUrl} alt={product.name} fill className="object-cover" sizes="128px" />
+        </Link>
+        <div className="flex-1 min-w-0 flex flex-col">
+          <Link href={productHref} className="flex-1 min-w-0">
+            {product.brand && <p className="label-caps truncate">{product.brand.name}</p>}
+            <h3 className="font-medium text-sm sm:text-base line-clamp-2 mt-1">{product.name}</h3>
+            <div className="flex items-baseline gap-2 mt-2">
+              <span className="font-semibold text-primary">{formatPrice(product.price)}</span>
+              {product.compareAtPrice && (
+                <span className="text-xs text-muted-foreground line-through">{formatPrice(product.compareAtPrice)}</span>
+              )}
+            </div>
+          </Link>
+          <div className="flex flex-wrap gap-2 mt-3">
+            {hasVariants ? (
+              <Button size="sm" className="rounded-full h-8 text-xs" asChild>
+                <Link href={productHref}>Select Options</Link>
+              </Button>
+            ) : (
+              <Button size="sm" className="rounded-full h-8 text-xs" onClick={handleAddToCart}>
+                <ShoppingBag className="h-3 w-3 mr-1" /> Add to Bag
+              </Button>
+            )}
+            {onQuickView && (
+              <Button size="sm" variant="outline" className="rounded-full h-8 w-8 p-0" onClick={handleQuickView} aria-label="Quick view">
+                <Eye className="h-3.5 w-3.5" />
+              </Button>
+            )}
+            <Button size="sm" variant="outline" className="rounded-full h-8 w-8 p-0" onClick={handleWishlist} aria-label="Wishlist">
+              <Heart className={cn("h-3.5 w-3.5", inWishlist && "fill-accent text-accent")} />
+            </Button>
+          </div>
+        </div>
+      </article>
+    );
+  }
+
   return (
     <motion.article
-      className={cn("group relative", className)}
+      className={cn("group relative flex flex-col", className)}
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
-      <Link href={`/products/${product.slug.current}`} className="block">
-        <div className="relative aspect-[3/4] overflow-hidden rounded-xl sm:rounded-2xl bg-muted shadow-sm transition-shadow duration-500 group-hover:shadow-xl group-hover:shadow-black/[0.06]">
+      <Link href={productHref} className="block">
+        <div className="relative aspect-[3/4] overflow-hidden rounded-lg sm:rounded-xl bg-muted shadow-sm transition-shadow duration-500 group-hover:shadow-md">
           <Image
             src={imageUrl}
             alt={product.name}
             fill
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 25vw"
           />
           {discount > 0 && (
-            <Badge className="absolute top-2 left-2 sm:top-3 sm:left-3 rounded-full bg-accent text-accent-foreground border-0 px-2 sm:px-2.5 text-[9px] sm:text-[10px] tracking-wider uppercase">
+            <Badge className="absolute top-2 left-2 rounded-full bg-accent text-accent-foreground border-0 px-2 text-[9px] sm:text-[10px] tracking-wider uppercase">
               -{discount}%
             </Badge>
           )}
           {product.isNewArrival && !discount && (
-            <Badge className="absolute top-2 left-2 sm:top-3 sm:left-3 rounded-full bg-primary/90 text-primary-foreground border-0 px-2 sm:px-2.5 text-[9px] sm:text-[10px] tracking-wider uppercase">
+            <Badge className="absolute top-2 left-2 rounded-full bg-primary text-primary-foreground border-0 px-2 text-[9px] sm:text-[10px] tracking-wider uppercase">
               New
             </Badge>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 flex gap-1.5 sm:gap-2 translate-y-0 opacity-100 sm:translate-y-full sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100 transition-all duration-400 ease-out">
+          {/* Desktop hover overlay */}
+          <div className="absolute inset-0 hidden sm:flex items-end justify-center p-3 gap-2 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             {hasVariants ? (
-              <Button size="sm" className="flex-1 rounded-full h-8 sm:h-9 text-[10px] sm:text-xs tracking-wide" asChild>
-                <Link href={`/products/${product.slug.current}`} onClick={(e) => e.stopPropagation()}>
-                  Select Options
-                </Link>
+              <Button size="sm" className="flex-1 rounded-full h-9 text-xs" asChild>
+                <Link href={productHref} onClick={(e) => e.stopPropagation()}>Select Options</Link>
               </Button>
             ) : (
-              <Button
-                size="sm"
-                className="flex-1 rounded-full h-8 sm:h-9 text-[10px] sm:text-xs tracking-wide min-w-0"
-                onClick={handleAddToCart}
-              >
-                <ShoppingBag className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1 sm:mr-1.5 shrink-0" />
-                <span className="truncate sm:hidden">Add</span>
-                <span className="truncate hidden sm:inline">Add to Bag</span>
+              <Button size="sm" className="flex-1 rounded-full h-9 text-xs" onClick={handleAddToCart}>
+                <ShoppingBag className="h-3.5 w-3.5 mr-1.5" /> Add to Bag
               </Button>
             )}
             {onQuickView && (
-              <Button
-                size="sm"
-                variant="secondary"
-                className="rounded-full h-8 w-8 sm:h-9 sm:w-9 p-0 bg-white/95 hover:bg-white shrink-0 hidden sm:inline-flex"
-                onClick={(e) => { e.preventDefault(); onQuickView(product); }}
-              >
+              <Button size="sm" variant="secondary" className="rounded-full h-9 w-9 p-0 bg-white/95" onClick={handleQuickView}>
                 <Eye className="h-3.5 w-3.5" />
               </Button>
             )}
           </div>
         </div>
-        <div className="mt-3 sm:mt-4 space-y-1 sm:space-y-1.5 px-0.5">
-          {product.brand && (
-            <p className="label-caps truncate">{product.brand.name}</p>
-          )}
-          <h3 className="font-medium text-xs sm:text-sm leading-snug line-clamp-2 tracking-wide text-foreground/90">
-            {product.name}
-          </h3>
-          <div className="flex items-baseline gap-2 pt-0.5">
-            <span className="text-sm font-semibold tracking-wide">{formatPrice(product.price)}</span>
-            {product.compareAtPrice && (
-              <span className="text-xs text-muted-foreground line-through">
-                {formatPrice(product.compareAtPrice)}
-              </span>
-            )}
-          </div>
-          {product.colors && product.colors.length > 0 && (
-            <div className="flex gap-1.5 pt-1">
-              {product.colors.slice(0, 4).map((c) => (
-                <span
-                  key={c.name}
-                  className="h-3 w-3 rounded-full border border-border/60 shrink-0"
-                  style={{ backgroundColor: c.hex }}
-                  title={c.name}
-                />
-              ))}
-              {product.colors.length > 4 && (
-                <span className="text-[10px] text-muted-foreground">+{product.colors.length - 4}</span>
-              )}
-            </div>
-          )}
-          {product.averageRating && (
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <span className="text-accent">★</span>
-              <span>{product.averageRating}</span>
-              <span className="opacity-60">({product.reviewCount})</span>
-            </div>
+      </Link>
+
+      {/* Mobile action row — always visible, compact */}
+      <div className="flex sm:hidden gap-1.5 mt-2">
+        {hasVariants ? (
+          <Button size="sm" className="flex-1 rounded-full h-8 text-[11px]" asChild>
+            <Link href={productHref}>Options</Link>
+          </Button>
+        ) : (
+          <Button size="sm" className="flex-1 rounded-full h-8 text-[11px]" onClick={handleAddToCart}>
+            <ShoppingBag className="h-3 w-3 mr-1" /> Add
+          </Button>
+        )}
+        {onQuickView && (
+          <Button size="sm" variant="outline" className="rounded-full h-8 w-8 p-0 shrink-0" onClick={handleQuickView} aria-label="Quick view">
+            <Eye className="h-3.5 w-3.5" />
+          </Button>
+        )}
+        <Button size="sm" variant="outline" className="rounded-full h-8 w-8 p-0 shrink-0" onClick={handleWishlist} aria-label="Wishlist">
+          <Heart className={cn("h-3.5 w-3.5", inWishlist && "fill-accent text-accent")} />
+        </Button>
+      </div>
+
+      <Link href={productHref} className="mt-2 sm:mt-3 space-y-1 px-0.5 block">
+        {product.brand && <p className="label-caps truncate">{product.brand.name}</p>}
+        <h3 className="font-medium text-xs sm:text-sm leading-snug line-clamp-2 text-foreground/90">{product.name}</h3>
+        <div className="flex items-baseline gap-2 pt-0.5">
+          <span className="text-sm font-semibold text-primary">{formatPrice(product.price)}</span>
+          {product.compareAtPrice && (
+            <span className="text-xs text-muted-foreground line-through">{formatPrice(product.compareAtPrice)}</span>
           )}
         </div>
+        {product.colors && product.colors.length > 0 && (
+          <div className="flex gap-1.5 pt-1 items-center">
+            {product.colors.slice(0, 5).map((c) => (
+              <span
+                key={c.name}
+                className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full border border-border/60 shrink-0"
+                style={{ backgroundColor: c.hex }}
+                title={c.name}
+              />
+            ))}
+          </div>
+        )}
       </Link>
+
+      {/* Desktop wishlist */}
       <button
-        onClick={(e) => {
-          e.preventDefault();
-          toggleItem(product._id);
-          toast.success(inWishlist ? "Removed from wishlist" : "Added to wishlist");
-        }}
+        type="button"
+        onClick={handleWishlist}
         className={cn(
-          "absolute top-2 right-2 sm:top-3 sm:right-3 z-10 p-1.5 sm:p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-sm",
-          "opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 hover:scale-105",
+          "absolute top-2 right-2 z-10 p-1.5 rounded-full bg-white/90 backdrop-blur-sm shadow-sm",
+          "hidden sm:flex opacity-0 group-hover:opacity-100 transition-opacity",
           inWishlist && "opacity-100 text-accent"
         )}
         aria-label="Add to wishlist"

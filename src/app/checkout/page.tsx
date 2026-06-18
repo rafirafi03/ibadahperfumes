@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/store/cart-store";
 import { createCartOrderAction } from "@/actions/order-actions";
 import { formatPrice } from "@/utils/format";
+import { PRODUCT_IMAGE_FALLBACK } from "@/lib/images";
 import { toast } from "sonner";
 
 export default function CheckoutPage() {
@@ -74,7 +75,7 @@ export default function CheckoutPage() {
             {items.map((item) => (
               <div key={item.productId} className="flex gap-3">
                 <div className="relative h-12 w-12 rounded overflow-hidden bg-muted shrink-0">
-                  <Image src={item.imageUrl || "/placeholder-product.jpg"} alt={item.name} fill className="object-cover" />
+                  <Image src={item.imageUrl || PRODUCT_IMAGE_FALLBACK} alt={item.name} fill className="object-cover" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">{item.name}</p>
