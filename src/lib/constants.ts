@@ -4,7 +4,8 @@ export const BRAND_TAGLINE = process.env.NEXT_PUBLIC_BRAND_TAGLINE || "Couture";
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 export const STORE_URL = process.env.NEXT_PUBLIC_STORE_URL || APP_URL;
 export const ADMIN_URL = process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:3001";
-export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919876543210";
+export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "917736085178";
+export const CONTACT_PHONE_DISPLAY = "+91 77360 85178";
 export const CURRENCY_SYMBOL = "₹";
 export const ITEMS_PER_PAGE = 12;
 

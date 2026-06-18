@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { CartDrawer } from "@/components/cart/cart-drawer";
+import { ContactFab } from "@/components/shared/contact-fab";
 import { QueryProvider } from "@/providers/query-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { APP_NAME, APP_URL, BRAND_NAME, BRAND_TAGLINE } from "@/lib/constants";
@@ -64,7 +65,8 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <CartDrawer />
-          <Toaster position="bottom-right" richColors />
+          <ContactFab />
+          <Toaster position="top-right" richColors />
         </QueryProvider>
       </body>
     </html>

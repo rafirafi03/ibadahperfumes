@@ -12,7 +12,7 @@ R.c("server/chunks/ssr/admin_src_app_(shell)_layout_tsx_1qfn9rl._.js")
 R.c("server/chunks/ssr/_125yr0k._.js")
 R.c("server/chunks/ssr/_0vv72wo._.js")
 R.c("server/chunks/ssr/_0nh25my._.js")
-R.c("server/chunks/ssr/[root-of-the-server]__0jpeuui._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__0aekgrz._.js")
 R.c("server/chunks/ssr/_1o_ckke._.js")
 R.m(14183)
 module.exports=R.m(14183).exports

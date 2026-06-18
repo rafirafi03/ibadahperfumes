@@ -39,9 +39,9 @@ export const mockSettings: StoreSettings = {
   _id: "settings-1",
   storeName: "Calira Couture",
   storeDescription: "Curated ladies dresses for every occasion — from garden parties to black-tie evenings.",
-  whatsappNumber: "919876543210",
+  whatsappNumber: "917736085178",
   email: "hello@caliracouture.com",
-  phone: "+91 98765 43210",
+  phone: "+91 77360 85178",
   address: "12 Couture Lane, Mumbai, India",
   socialLinks: {
     instagram: "https://instagram.com/caliracouture",
