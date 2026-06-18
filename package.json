@@ -2,17 +2,10 @@
   "name": "template1",
   "version": "0.1.0",
   "private": true,
-  "workspaces": [
-    "admin"
-  ],
   "scripts": {
     "dev": "next dev",
-    "dev:admin": "npm run dev --workspace=luxestore-admin",
     "build": "next build",
-    "build:admin": "npm run build --workspace=luxestore-admin",
-    "build:all": "npm run build && npm run build:admin",
     "start": "next start",
-    "start:admin": "npm run start --workspace=luxestore-admin",
     "lint": "eslint"
   },
   "dependencies": {
