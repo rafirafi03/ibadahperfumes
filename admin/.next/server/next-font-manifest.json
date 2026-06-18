@@ -1,0 +1,55 @@
+{
+  "app": {
+    "[project]/admin/src/app/(shell)/banners/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ],
+    "[project]/admin/src/app/(shell)/brands/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ],
+    "[project]/admin/src/app/(shell)/categories/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ],
+    "[project]/admin/src/app/(shell)/coupons/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ],
+    "[project]/admin/src/app/(shell)/customers/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ],
+    "[project]/admin/src/app/(shell)/orders/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ],
+    "[project]/admin/src/app/(shell)/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ],
+    "[project]/admin/src/app/(shell)/products/new/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ],
+    "[project]/admin/src/app/(shell)/products/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ],
+    "[project]/admin/src/app/(shell)/settings/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ],
+    "[project]/admin/src/app/_not-found/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ],
+    "[project]/admin/src/app/login/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/5c285b27cdda1fe8-s.p.2_mbdogr7ni8i.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}
