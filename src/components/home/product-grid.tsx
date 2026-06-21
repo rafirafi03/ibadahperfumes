@@ -28,7 +28,7 @@ export function ProductGrid({ products, title, subtitle, label, viewAllHref, var
         <div className="flex flex-col gap-5 sm:flex-row sm:items-end justify-between mb-10 sm:mb-12">
           <SectionHeading title={title} subtitle={subtitle} label={label} align="left" className="mb-0" />
           {viewAllHref && (
-            <Button variant="outline" className="w-full sm:w-auto shrink-0 border-border hover:border-brand-gold hover:text-brand-amber" asChild>
+            <Button variant="outline" className="w-full sm:w-auto shrink-0 border-primary/30 text-primary hover:bg-primary hover:text-white" asChild>
               <Link href={viewAllHref}>
                 View All <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
               </Link>

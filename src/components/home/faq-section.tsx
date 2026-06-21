@@ -1,35 +1,38 @@
 "use client";
 
-import { Container, SectionHeading } from "@/components/shared/container";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { MotionWrapper } from "@/components/shared/motion";
+import { Container } from "@/components/shared/container";
 import type { FAQ } from "@/types";
 
 export function FAQSection({ faqs }: { faqs: FAQ[] }) {
   return (
-    <section className="py-16 sm:py-22 md:py-26 section-cream">
-      <Container className="max-w-3xl">
-        <SectionHeading
-          title="Fragrance Guide"
-          subtitle="Everything you need to know about our oud perfumes and ordering."
-          label="FAQ"
-        />
-        <MotionWrapper>
-          <div className="fragrance-panel">
-            <Accordion className="w-full">
-              {faqs.map((faq) => (
-                <AccordionItem key={faq._id} value={faq._id} className="border-border/60 py-1">
-                  <AccordionTrigger className="text-left font-heading text-base sm:text-lg py-5 hover:no-underline hover:text-brand-amber">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground text-sm leading-relaxed pb-5">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+    <section className="py-20 sm:py-24 bg-[#fafaf9] border-t border-border/60">
+      <Container>
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
+          <div className="lg:col-span-4 lg:sticky lg:top-24 h-fit">
+            <p className="label-caps mb-4">FAQ</p>
+            <div className="oud-accent-bar mb-5" />
+            <h2 className="font-heading text-3xl sm:text-4xl text-foreground leading-tight font-normal mb-4">
+              Questions answered
+            </h2>
+            <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
+              Everything you need to know about our oud perfumes, attars, and ordering.
+            </p>
           </div>
-        </MotionWrapper>
+
+          <div className="lg:col-span-8 divide-y divide-border border-t border-border">
+            {faqs.map((faq) => (
+              <details key={faq._id} className="group py-5 sm:py-6">
+                <summary className="font-heading text-lg sm:text-xl text-foreground cursor-pointer list-none flex items-start justify-between gap-4 font-normal">
+                  {faq.question}
+                  <span className="text-muted-foreground/50 group-open:rotate-45 transition-transform text-2xl leading-none shrink-0">+</span>
+                </summary>
+                <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed pr-8">
+                  {faq.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
       </Container>
     </section>
   );

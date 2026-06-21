@@ -1,10 +1,11 @@
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "AM Fragrance";
-export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME || "AM";
-export const BRAND_TAGLINE = process.env.NEXT_PUBLIC_BRAND_TAGLINE || "Fragrance";
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Ibadah Perfumes";
+export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME || "Ibadah";
+export const BRAND_TAGLINE = process.env.NEXT_PUBLIC_BRAND_TAGLINE || "Perfumes";
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 export const STORE_URL = process.env.NEXT_PUBLIC_STORE_URL || APP_URL;
-export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "917559078077";
-export const CONTACT_PHONE_DISPLAY = "+91 7559 078 077";
+export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "917510701994";
+export const CONTACT_PHONE_DISPLAY =
+  process.env.NEXT_PUBLIC_CONTACT_PHONE_DISPLAY || "+91 75107 01994";
 export const CURRENCY_SYMBOL = "₹";
 export const ITEMS_PER_PAGE = 12;
 export const INSTAGRAM_HANDLE = process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || "amfragrancesindia";
@@ -30,8 +31,8 @@ export const SORT_OPTIONS = [
 
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/products", label: "Fragrances" },
+  { href: "/products", label: "Shop" },
   { href: "/categories", label: "Collections" },
-  { href: "/about", label: "Our Story" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ] as const;

@@ -7,7 +7,7 @@ export function getTelHref(phone: string = WHATSAPP_NUMBER): string {
 }
 
 export function getWhatsAppHref(
-  message = "Hello AM Fragrance, I'd like to get in touch.",
+  message = "Hello Ibadah Perfumes, I'd like to get in touch.",
   phone: string = WHATSAPP_NUMBER
 ): string {
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;

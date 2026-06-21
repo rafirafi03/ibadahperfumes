@@ -31,11 +31,11 @@ export function SectionHeading({
   return (
     <div className={cn("mb-12 md:mb-14", align === "center" && "text-center", className)}>
       {label && (
-        <p className={cn("label-caps mb-3", dark ? "text-brand-gold" : "text-brand-amber", align === "center" && "mx-auto")}>
+        <p className={cn("label-caps mb-3", dark ? "text-white/70" : "text-primary", align === "center" && "mx-auto")}>
           {label}
         </p>
       )}
-      <div className={cn("oud-accent-bar mb-5", align === "center" && "mx-auto", dark && "bg-brand-gold")} />
+      <div className={cn("oud-accent-bar mb-5", align === "center" && "mx-auto")} />
       <h2
         className={cn(
           "font-heading text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] leading-[1.1] text-balance tracking-tight",

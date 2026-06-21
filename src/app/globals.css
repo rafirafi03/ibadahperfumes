@@ -10,15 +10,19 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-heading);
-  --color-brand-oud: #1f1f1f;
-  --color-brand-espresso: #141414;
-  --color-brand-sand: #e8e6e1;
-  --color-brand-cream: #f7f6f3;
-  --color-brand-parchment: #eeede9;
-  --color-brand-champagne: #dcdad4;
-  --color-brand-gold: #6e675f;
-  --color-brand-gold-light: #8a8278;
-  --color-brand-amber: #4a4540;
+  --color-brand-green: #0a4a08;
+  --color-brand-green-dark: #073205;
+  --color-brand-green-light: #126b10;
+  --color-brand-mint: #f7f7f5;
+  --color-brand-oud: #0a4a08;
+  --color-brand-espresso: #073205;
+  --color-brand-sand: #f4f4f2;
+  --color-brand-cream: #fafaf9;
+  --color-brand-parchment: #ffffff;
+  --color-brand-champagne: #efefed;
+  --color-brand-gold: #ffffff;
+  --color-brand-gold-light: #f4f8f4;
+  --color-brand-amber: #0a4a08;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -57,35 +61,35 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* AM Fragrance — unisex niche fragrance design system */
+/* Ibadah Perfumes — minimal luxury: white, soft neutrals, green accent */
 :root {
-  --background: #e8e6e1;
-  --foreground: #141414;
-  --card: #f7f6f3;
-  --card-foreground: #141414;
-  --popover: #f7f6f3;
-  --popover-foreground: #141414;
-  --primary: #141414;
-  --primary-foreground: #f7f6f3;
-  --secondary: #dcdad4;
-  --secondary-foreground: #141414;
-  --muted: #c8c6c0;
-  --muted-foreground: #5c5c5c;
-  --accent: #6e675f;
-  --accent-foreground: #f7f6f3;
-  --destructive: #b54545;
-  --border: #cbc9c3;
-  --input: #dcdad4;
-  --ring: #6e675f;
-  --radius: 0.5rem;
-  --sidebar: #141414;
-  --sidebar-foreground: #f7f6f3;
-  --sidebar-primary: #6e675f;
-  --sidebar-primary-foreground: #f7f6f3;
-  --sidebar-accent: #1f1f1f;
-  --sidebar-accent-foreground: #f7f6f3;
-  --sidebar-border: #3a3a3a;
-  --sidebar-ring: #6e675f;
+  --background: #fafaf9;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #0a4a08;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f2;
+  --secondary-foreground: #1a1a1a;
+  --muted: #efefed;
+  --muted-foreground: #737373;
+  --accent: #0a4a08;
+  --accent-foreground: #ffffff;
+  --destructive: #c53030;
+  --border: #e8e8e6;
+  --input: #f0f0ee;
+  --ring: #0a4a08;
+  --radius: 0.375rem;
+  --sidebar: #0a4a08;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #0a4a08;
+  --sidebar-accent: #126b10;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #126b10;
+  --sidebar-ring: #ffffff;
 }
 
 @layer base {
@@ -95,52 +99,47 @@
   body {
     @apply bg-background text-foreground overflow-x-hidden antialiased;
     font-feature-settings: "kern" 1, "liga" 1;
-    background-image:
-      radial-gradient(ellipse 100% 80% at 50% -20%, rgba(110, 103, 95, 0.06), transparent 55%),
-      radial-gradient(ellipse 50% 40% at 100% 50%, rgba(20, 20, 20, 0.02), transparent 50%);
   }
   html {
     @apply font-sans;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading), "Cormorant Garamond", Georgia, serif;
-    @apply tracking-[0.02em] font-normal text-foreground;
+    font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+    @apply tracking-tight font-normal text-foreground;
   }
 }
 
 @layer utilities {
   .font-heading {
-    font-family: var(--font-heading), "Cormorant Garamond", Georgia, serif;
+    font-family: var(--font-heading), "Playfair Display", Georgia, serif;
   }
   .label-caps {
-    @apply font-sans text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.24em] sm:tracking-[0.28em] text-muted-foreground font-medium;
+    @apply font-sans text-[0.56rem] sm:text-[0.6rem] uppercase tracking-[0.28em] sm:tracking-[0.32em] text-muted-foreground font-medium;
   }
 
-  /* Perfume boutique typography */
   .font-product {
-    font-family: var(--font-heading), "Cormorant Garamond", Georgia, serif;
-    @apply font-normal tracking-[0.04em] leading-snug;
+    font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+    @apply font-normal tracking-[0.02em] leading-snug;
   }
   .product-brand {
-    @apply font-sans text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.3em] text-muted-foreground font-medium;
+    @apply font-sans text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.28em] text-muted-foreground font-semibold;
   }
   .price-display {
-    @apply font-sans text-sm font-semibold tabular-nums tracking-[0.06em] text-foreground;
+    @apply font-sans text-sm font-bold tabular-nums tracking-wide text-primary;
   }
   .price-display-card {
-    @apply font-sans text-sm font-semibold tabular-nums tracking-[0.06em] text-foreground;
+    @apply font-sans text-sm font-bold tabular-nums tracking-wide text-primary;
   }
 
-  /* Section backgrounds — alternating editorial rhythm */
-  .section-parchment { @apply bg-background; }
-  .section-cream { @apply bg-brand-cream; }
-  .section-sand { @apply bg-secondary/60; }
+  .section-parchment { @apply bg-[#fafaf9]; }
+  .section-cream { @apply bg-white; }
+  .section-sand { @apply bg-[#f4f4f2]; }
+  .section-luxe { @apply bg-white border-y border-border/60; }
   .section-oud {
-    @apply bg-brand-oud text-white;
-    background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 255, 255, 0.04), transparent 60%);
+    @apply bg-brand-green text-white;
+    background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 255, 255, 0.06), transparent 60%);
   }
 
-  /* Text on images */
   .overlay-content { @apply text-white; }
   .overlay-content h1,
   .overlay-content h2,
@@ -149,74 +148,71 @@
   .overlay-content h5,
   .overlay-content h6 {
     color: #ffffff !important;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.55);
   }
   .overlay-content p {
-    @apply text-white/92;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+    @apply text-white/90;
   }
   .overlay-content .label-caps,
   .overlay-content .text-brand-gold {
-    color: #c8c6c0 !important;
-    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
+    color: rgba(255, 255, 255, 0.75) !important;
   }
 
   .scrim-hero {
-    background: linear-gradient(105deg, rgba(20, 20, 20, 0.93) 0%, rgba(20, 20, 20, 0.75) 40%, rgba(20, 20, 20, 0.4) 70%, rgba(20, 20, 20, 0.15) 100%);
+    background: linear-gradient(105deg, rgba(10, 74, 8, 0.92) 0%, rgba(10, 74, 8, 0.7) 45%, rgba(10, 74, 8, 0.2) 100%);
   }
   .scrim-bottom {
-    background: linear-gradient(to top, rgba(20, 20, 20, 0.96) 0%, rgba(20, 20, 20, 0.75) 42%, rgba(20, 20, 20, 0.3) 75%, transparent 100%);
+    background: linear-gradient(to top, rgba(10, 74, 8, 0.95) 0%, rgba(10, 74, 8, 0.6) 50%, transparent 100%);
   }
   .scrim-center {
-    background: linear-gradient(to right, rgba(20, 20, 20, 0.9) 0%, rgba(20, 20, 20, 0.68) 50%, rgba(20, 20, 20, 0.38) 100%);
+    background: linear-gradient(to right, rgba(10, 74, 8, 0.88) 0%, rgba(10, 74, 8, 0.55) 55%, transparent 100%);
   }
 
   .gold-line {
-    background: linear-gradient(90deg, transparent 0%, #6e675f 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, #0a4a08 50%, transparent 100%);
     height: 1px;
+    opacity: 0.25;
   }
   .oud-accent-bar {
-    @apply h-px w-10 bg-brand-gold/70;
+    @apply h-px w-14 bg-primary/25;
   }
   .brand-gradient {
-    background: linear-gradient(165deg, #141414 0%, #1f1f1f 48%, #141414 100%);
+    background: linear-gradient(165deg, #073205 0%, #0a4a08 50%, #073205 100%);
   }
   .luxury-gradient {
-    background: linear-gradient(165deg, #0f0f0f 0%, #1f1f1f 42%, #141414 100%);
+    background: linear-gradient(165deg, #073205 0%, #0a4a08 48%, #073205 100%);
   }
 
   .perfume-pedestal {
-    @apply bg-brand-espresso;
+    @apply bg-brand-mint;
   }
   .product-image-frame {
-    @apply flex items-center justify-center overflow-hidden bg-brand-espresso;
+    @apply flex items-center justify-center overflow-hidden bg-brand-mint;
   }
 
   .luxury-card {
-    @apply bg-card rounded-xl border border-border/70 shadow-[0_2px_24px_-8px_rgba(28,20,14,0.08)];
+    @apply bg-card rounded-2xl border border-border shadow-[0_2px_20px_-8px_rgba(10,74,8,0.08)];
   }
   .fragrance-panel {
-    @apply bg-card rounded-xl border border-border/70 shadow-[0_2px_24px_-8px_rgba(28,20,14,0.08)] p-6 sm:p-8;
+    @apply bg-card rounded-2xl border border-border shadow-[0_2px_20px_-8px_rgba(10,74,8,0.06)] p-6 sm:p-8;
   }
 
-  /* Product card — neutral unisex theme */
   .product-card {
-    @apply relative overflow-hidden rounded-xl border border-border bg-card shadow-[0_2px_20px_-8px_rgba(20,20,20,0.08)] transition-all duration-500;
+    @apply relative overflow-hidden rounded-none border border-border bg-card shadow-none transition-all duration-300;
   }
   .product-card:hover {
-    @apply border-brand-gold/40 shadow-[0_16px_40px_-12px_rgba(20,20,20,0.14)];
+    @apply border-primary shadow-[0_8px_24px_-8px_rgba(10,74,8,0.12)];
   }
   .product-card__media {
-    @apply relative overflow-hidden bg-brand-espresso;
+    @apply relative overflow-hidden bg-brand-mint;
   }
   .product-card__body {
     @apply border-t border-border bg-card;
   }
   .product-card__wishlist {
-    @apply bg-black/50 backdrop-blur-sm border border-white/20 text-white hover:bg-white hover:text-brand-espresso hover:border-white transition-colors;
+    @apply bg-primary/80 backdrop-blur-sm border border-white/20 text-white hover:bg-white hover:text-primary hover:border-white transition-colors;
   }
   .product-card__wishlist-active {
-    @apply bg-white border-white text-brand-espresso;
+    @apply bg-white border-white text-primary;
   }
 
   .text-balance { text-wrap: balance; }

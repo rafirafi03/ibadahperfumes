@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -10,26 +10,26 @@ import { Toaster } from "@/components/ui/sonner";
 import { APP_NAME, APP_URL, BRAND_NAME, BRAND_TAGLINE } from "@/lib/constants";
 import { generateOrganizationJsonLd } from "@/utils/seo";
 
-const cormorant = Cormorant_Garamond({
+const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-heading",
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const jost = Jost({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: `${BRAND_NAME} ${BRAND_TAGLINE} — Luxury Oud Perfumes`,
-    template: `%s | ${BRAND_NAME} ${BRAND_TAGLINE}`,
+    default: `${APP_NAME} — Premium Oud & Attar Fragrances`,
+    template: `%s | ${APP_NAME}`,
   },
-  description: "Discover premium oud perfumes, attars, and luxury fragrances at AM Fragrance. Shop curated Arabian oud collections with WhatsApp ordering.",
+  description: `Discover premium oud perfumes and attars at ${BRAND_NAME} ${BRAND_TAGLINE}. Shop curated Arabian fragrances with WhatsApp ordering.`,
   metadataBase: new URL(APP_URL),
   openGraph: {
     type: "website",
@@ -52,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable} h-full`}>
+    <html lang="en" className={`${playfair.variable} ${dmSans.variable} h-full`}>
       <head>
         <script
           type="application/ld+json"

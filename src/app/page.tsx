@@ -1,7 +1,8 @@
 import { HeroBanner } from "@/components/home/hero-banner";
-import { ProductGrid } from "@/components/home/product-grid";
-import { CategoriesSection } from "@/components/home/categories-section";
-import { PromotionalBanners } from "@/components/home/promotional-banners";
+import { CategoryBento } from "@/components/home/category-bento";
+import { FeaturedSpotlight } from "@/components/home/featured-spotlight";
+import { BrandStoryStrip } from "@/components/home/brand-story-strip";
+import { ProductTabs } from "@/components/home/product-tabs";
 import { InstagramReelsSection } from "@/components/home/instagram-reels-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { FAQSection } from "@/components/home/faq-section";
@@ -29,12 +30,11 @@ export default async function HomePage() {
   return (
     <>
       <HeroBanner banners={banners} />
-      <CategoriesSection categories={categories} />
-      <ProductGrid products={featured} title="Signature Oud" subtitle="Handpicked compositions for the discerning nose" label="Maison Collection" viewAllHref="/products?featured=true" variant="cream" />
+      <CategoryBento categories={categories} />
+      <FeaturedSpotlight products={featured} />
+      <BrandStoryStrip banners={banners} />
+      <ProductTabs featured={featured} newArrivals={newArrivals} bestSellers={bestSellers} />
       <InstagramReelsSection reels={reels} />
-      <PromotionalBanners banners={banners} />
-      <ProductGrid products={newArrivals} title="New Arrivals" subtitle="Fresh blends from our atelier" label="Just Landed" viewAllHref="/products?sort=newest" variant="parchment" />
-      <ProductGrid products={bestSellers} title="Most Coveted" subtitle="The oud fragrances our clients cherish" label="Bestsellers" viewAllHref="/products?sort=popular" variant="sand" />
       <TestimonialsSection testimonials={testimonials} />
       <FAQSection faqs={faqs} />
       <NewsletterSection />

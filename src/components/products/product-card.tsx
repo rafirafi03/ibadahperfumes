@@ -20,7 +20,7 @@ interface ProductCardProps {
   product: Product;
   onQuickView?: (product: Product) => void;
   className?: string;
-  layout?: "grid" | "list";
+  layout?: "grid" | "list" | "spotlight" | "compact";
 }
 
 export function ProductCard({ product, onQuickView, className, layout = "grid" }: ProductCardProps) {
@@ -56,6 +56,43 @@ export function ProductCard({ product, onQuickView, className, layout = "grid" }
     toast.success(inWishlist ? "Removed from wishlist" : "Added to wishlist");
   };
 
+  if (layout === "spotlight") {
+    return (
+      <Link href={productHref} className={cn("group block overflow-hidden bg-white border border-border hover:border-primary/20 transition-colors", className)}>
+        <div className="relative aspect-[16/9] sm:aspect-[2/1] overflow-hidden bg-[#f0f0ee]">
+          <SafeImage
+            src={imageUrl}
+            alt={product.name}
+            fill
+            className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.02]"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </div>
+        <div className="p-6 sm:p-8">
+          {product.brand && <p className="label-caps mb-2">{product.brand.name}</p>}
+          <h3 className="font-heading text-xl sm:text-2xl leading-snug text-foreground font-normal mb-2 group-hover:text-primary transition-colors">{product.name}</h3>
+          <p className="text-sm text-muted-foreground line-clamp-2 max-w-lg mb-4">{product.shortDescription}</p>
+          <span className="text-sm font-medium text-foreground tracking-wide">{formatPrice(product.price)}</span>
+        </div>
+      </Link>
+    );
+  }
+
+  if (layout === "compact") {
+    return (
+      <Link href={productHref} className={cn("group flex gap-4 p-5 bg-white border border-border hover:border-primary/20 transition-colors", className)}>
+        <div className="relative size-20 sm:size-24 shrink-0 overflow-hidden bg-brand-mint">
+          <SafeImage src={imageUrl} alt={product.name} fill className="object-cover" sizes="96px" />
+        </div>
+        <div className="flex flex-col justify-center min-w-0 flex-1">
+          {product.brand && <p className="product-brand mb-1">{product.brand.name}</p>}
+          <h3 className="font-product text-base leading-snug line-clamp-2 group-hover:text-primary transition-colors">{product.name}</h3>
+          <span className="price-display-card mt-2">{formatPrice(product.price)}</span>
+        </div>
+      </Link>
+    );
+  }
+
   if (layout === "list") {
     return (
       <article className={cn("group product-card flex overflow-hidden", className)}>
@@ -83,7 +120,7 @@ export function ProductCard({ product, onQuickView, className, layout = "grid" }
                 <Link href={productHref}>Select Options</Link>
               </Button>
             ) : (
-              <Button size="sm" className="flex-1 rounded-full bg-foreground text-background hover:bg-foreground/90" onClick={handleAddToCart}>
+              <Button size="sm" className="flex-1 rounded-full bg-primary text-white hover:bg-brand-green-dark" onClick={handleAddToCart}>
                 <ShoppingBag className="h-3.5 w-3.5 mr-1.5" />Add to Bag
               </Button>
             )}
@@ -164,7 +201,7 @@ export function ProductCard({ product, onQuickView, className, layout = "grid" }
                 <Link href={productHref}>Select Options</Link>
               </Button>
             ) : (
-              <Button size="sm" className="flex-1 min-w-0 rounded-full h-9 text-xs font-sans tracking-wide bg-foreground text-background hover:bg-foreground/90" onClick={handleAddToCart}>
+              <Button size="sm" className="flex-1 min-w-0 rounded-full h-9 text-xs font-sans tracking-wide bg-primary text-white hover:bg-brand-green-dark" onClick={handleAddToCart}>
                 <ShoppingBag className="h-3 w-3 mr-1.5 shrink-0" /> Add to Bag
               </Button>
             )}

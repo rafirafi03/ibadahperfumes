@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-brand-espresso text-white hover:bg-brand-oud shadow-sm",
+        default: "bg-primary text-white hover:bg-brand-green-dark shadow-sm",
         outline:
           "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground",
         secondary:
@@ -20,7 +20,7 @@ const buttonVariants = cva(
           "bg-destructive/10 text-destructive hover:bg-destructive/20",
         link: "text-foreground underline-offset-4 hover:underline rounded-none",
         luxury:
-          "bg-brand-espresso text-white hover:bg-brand-oud shadow-sm",
+          "bg-primary text-white hover:bg-brand-green-dark shadow-sm",
       },
       size: {
         default: "h-9 gap-1.5 px-5",

@@ -65,7 +65,7 @@ export function InstagramReelCard({
           <Button
             size="sm"
             variant="outline"
-            className="w-full h-8 rounded-full bg-black/40 backdrop-blur-sm border-white/25 text-white hover:bg-white hover:text-brand-espresso text-[0.65rem] font-sans tracking-wide"
+            className="w-full h-8 rounded-full bg-black/40 backdrop-blur-sm border-white/25 text-white hover:bg-white hover:text-primary text-[0.65rem] font-sans tracking-wide"
             asChild
           >
             <Link href={postUrl} target="_blank" rel="noopener noreferrer">

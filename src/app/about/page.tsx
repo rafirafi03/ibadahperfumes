@@ -109,7 +109,7 @@ export default async function AboutPage() {
           <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
             <p className="label-caps mb-3">What We Stand For</p>
             <div className="oud-accent-bar mx-auto mb-5" />
-            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl">The AM Fragrance Promise</h2>
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl">The Ibadah Promise</h2>
           </div>
           <div className="grid sm:grid-cols-2 gap-5 md:gap-6">
             {pillars.map(({ icon: Icon, title, text }) => (

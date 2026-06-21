@@ -86,19 +86,19 @@ const helpTopics = [
     icon: Package,
     title: "Orders & Delivery",
     text: "Track an order, change details, or ask about shipping timelines.",
-    message: "Hello AM Fragrance, I have a question about my order or delivery.",
+    message: "Hello Ibadah Perfumes, I have a question about my order or delivery.",
   },
   {
     icon: Sparkles,
     title: "Fragrance Guidance",
     text: "Not sure which oud suits you? We'll match a scent to your taste.",
-    message: "Hello AM Fragrance, I'd like help choosing the right oud fragrance.",
+    message: "Hello Ibadah Perfumes, I'd like help choosing the right oud fragrance.",
   },
   {
     icon: Gift,
     title: "Gifts & Sets",
     text: "Discovery sets, attars, and curated gifts for any occasion.",
-    message: "Hello AM Fragrance, I'm looking for a gift or discovery set recommendation.",
+    message: "Hello Ibadah Perfumes, I'm looking for a gift or discovery set recommendation.",
   },
 ] as const;
 

@@ -148,7 +148,7 @@ export function ProductDetail({ product, reviews, relatedProducts }: ProductDeta
 
       <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-14 items-start">
         <div className="lg:sticky lg:top-24 space-y-3">
-          <div className="relative w-full aspect-[4/5] sm:aspect-[3/4] max-h-[min(75vh,640px)] overflow-hidden rounded-xl bg-brand-espresso cursor-zoom-in"
+          <div className="relative w-full aspect-[4/5] sm:aspect-[3/4] max-h-[min(75vh,640px)] overflow-hidden rounded-xl bg-brand-mint cursor-zoom-in"
             onClick={() => setZoomOpen(true)}
             role="button"
             tabIndex={0}
@@ -163,7 +163,7 @@ export function ProductDetail({ product, reviews, relatedProducts }: ProductDeta
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
             {discount > 0 && (
-              <Badge className="absolute top-4 left-4 rounded-full bg-white text-brand-espresso border-0 uppercase tracking-wider text-[10px]">
+              <Badge className="absolute top-4 left-4 rounded-full bg-white text-primary border-0 uppercase tracking-wider text-[10px]">
                 -{discount}%
               </Badge>
             )}

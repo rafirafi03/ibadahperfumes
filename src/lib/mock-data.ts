@@ -36,26 +36,26 @@ function buildVariantStock(volumes: string[], concentrations: ProductColor[], ba
 }
 
 const concentrations = {
-  edp: { name: "Eau de Parfum", hex: "#1a1a1a" },
-  parfum: { name: "Parfum", hex: "#0a0a0a" },
-  attar: { name: "Attar Oil", hex: "#3d2914" },
-  oud: { name: "Pure Oud", hex: "#2c1810" },
+  edp: { name: "Eau de Parfum", hex: "#0a4a08" },
+  parfum: { name: "Parfum", hex: "#073205" },
+  attar: { name: "Attar Oil", hex: "#126b10" },
+  oud: { name: "Pure Oud", hex: "#0a4a08" },
 } as const;
 
 export const mockSettings: StoreSettings = {
   _id: "settings-1",
-  storeName: "AM Fragrance",
-  storeDescription: "Luxury oud perfumes and Arabian attars — crafted for those who appreciate the art of fine fragrance.",
-  whatsappNumber: "917559078077",
-  email: "hello@amfragrance.com",
-  phone: "+91 7559 078 077",
+  storeName: "Ibadah Perfumes",
+  storeDescription: "Premium oud perfumes and Arabian attars — crafted with devotion for those who seek authentic, long-lasting fragrance.",
+  whatsappNumber: "917510701994",
+  email: "hello@ibadahperfumes.com",
+  phone: "+91 75107 01994",
   address: "Kasaragod Chakkarebazar, Kerala, India",
   socialLinks: {
     instagram: "https://www.instagram.com/amfragrancesindia/",
-    facebook: "https://facebook.com/amfragrance",
+    facebook: "https://facebook.com/ibadahperfumes",
   },
-  seoTitle: "AM Fragrance — Luxury Oud Perfumes",
-  seoDescription: "Discover premium oud perfumes, attars, and niche fragrances. Arabian oud collections for the discerning connoisseur.",
+  seoTitle: "Ibadah Perfumes — Premium Oud & Attar",
+  seoDescription: "Discover premium oud perfumes, attars, and niche fragrances at Ibadah Perfumes. Authentic Arabian collections for every occasion.",
   currency: "INR",
   currencySymbol: "₹",
 };
@@ -65,12 +65,12 @@ export const mockCategories: Category[] = [
   { _id: "cat-2", name: "Eau de Parfum", slug: slug("eau-de-parfum"), description: "Long-lasting luxury EDPs", featured: true, order: 2, productCount: 6, imageUrl: categoryImage(1) },
   { _id: "cat-3", name: "Attars & Oils", slug: slug("attars-oils"), description: "Traditional concentrated attars", featured: true, order: 3, productCount: 5, imageUrl: categoryImage(2) },
   { _id: "cat-4", name: "Gift Sets", slug: slug("gift-sets"), description: "Curated fragrance gift collections", featured: true, order: 4, productCount: 4, imageUrl: categoryImage(3) },
-  { _id: "cat-5", name: "Niche Collection", slug: slug("niche-collection"), description: "Rare and exclusive blends", featured: false, order: 5, productCount: 3, imageUrl: categoryImage(4) },
+  { _id: "cat-5", name: "Niche Collection", slug: slug("niche-collection"), description: "Rare and exclusive blends", featured: true, order: 5, productCount: 3, imageUrl: categoryImage(4) },
   { _id: "cat-6", name: "Unisex Oud", slug: slug("unisex-oud"), description: "Genderless oud masterpieces", featured: false, order: 6, productCount: 4, imageUrl: categoryImage(5) },
 ];
 
 export const mockBrands: Brand[] = [
-  { _id: "brand-1", name: "AM Signature", slug: slug("am-signature"), description: "House oud collection" },
+  { _id: "brand-1", name: "Ibadah Signature", slug: slug("ibadah-signature"), description: "House oud collection" },
   { _id: "brand-2", name: "Arabian Nights", slug: slug("arabian-nights"), description: "Traditional Middle Eastern blends" },
   { _id: "brand-3", name: "Oud Royale", slug: slug("oud-royale"), description: "Premium Cambodian oud" },
 ];
@@ -80,9 +80,9 @@ const volumes = ["30ml", "50ml", "100ml"];
 export const mockInstagramReels: InstagramReel[] = [
   {
     _id: "reel-1",
-    title: "Celeb Manju Pillai Unboxing Royal Cambodian",
+    title: "Gucci Flora Price Drop Offer",
     caption: "The scent of pure luxury ✨",
-    reelUrl: "https://www.instagram.com/p/DZjaKdky3B_/",
+    reelUrl: "https://www.instagram.com/p/DQvcCGdkn_R/",
     thumbnailUrl: productImage(0),
     productId: "prod-1",
     productName: "Royal Cambodian Oud",
@@ -91,20 +91,20 @@ export const mockInstagramReels: InstagramReel[] = [
   },
   {
     _id: "reel-2",
-    title: "Karthik Surya unboxing Arabian Oud",
-    caption: "Master perfumer secrets revealed",
-    reelUrl: "https://www.instagram.com/p/DZnArwnyKXQ/",
-    thumbnailUrl: productImage(1),
-    productId: "prod-2",
-    productName: "Arabian Nights Oud",
+    title: "Helen of Sparta — First Impression",
+    caption: "The art of wearing pure oud oil",
+    reelUrl: "https://www.instagram.com/p/DQ0n-9RkqAa/",
+    thumbnailUrl: productImage(5),
+    productId: "prod-6",
+    productName: "Sultan's Attar",
     featured: true,
     order: 2,
   },
   {
     _id: "reel-3",
-    title: "Helen of Sparta — First Impression",
+    title: "Ammu Murali Review",
     caption: "Dark, smoky, unforgettable",
-    reelUrl: "https://www.instagram.com/p/DZFcIi-SBme/",
+    reelUrl: "https://www.instagram.com/p/DUCeBxOEjmi/",
     thumbnailUrl: productImage(2),
     productId: "prod-4",
     productName: "Black Oud Intense",
@@ -113,20 +113,20 @@ export const mockInstagramReels: InstagramReel[] = [
   },
   {
     _id: "reel-4",
-    title: "RJ Mithun unboxing Sultan's Attar",
-    caption: "The art of wearing pure oud oil",
-    reelUrl: "https://www.instagram.com/p/DYycNVKSHLi/",
-    thumbnailUrl: productImage(5),
-    productId: "prod-6",
-    productName: "Sultan's Attar",
+    title: "Will Perfume Expire",
+    caption: "Master perfumer secrets revealed",
+    reelUrl: "https://www.instagram.com/p/DQjs9N3DLzq/",
+    thumbnailUrl: productImage(1),
+    productId: "prod-2",
+    productName: "Arabian Nights Oud",
     featured: true,
     order: 4,
   },
   {
     _id: "reel-5",
-    title: "Bineesh Bastian unboxing Oud Discovery Set",
+    title: "Asianet Eid Media Coverage",
     caption: "Perfect for the oud lover in your life",
-    reelUrl: "https://www.instagram.com/p/DYrxHDJSKlv/",
+    reelUrl: "https://www.instagram.com/p/DHyC5N7SNDn/",
     thumbnailUrl: productImage(3),
     productId: "prod-7",
     productName: "Oud Discovery Set",
@@ -140,7 +140,7 @@ export const mockAboutStoryReel: InstagramReel = {
   _id: "about-reel-1",
   title: "About our Story",
   caption: "Dedication behind every bottle",
-  reelUrl: "https://www.instagram.com/p/DZm047aplWj/",
+  reelUrl: "https://www.instagram.com/p/DHyC5N7SNDn/",
   thumbnailUrl: heroImage(0),
   featured: true,
   order: 1,
@@ -311,21 +311,22 @@ export const mockProducts: Product[] = [
 
 export const mockBanners: Banner[] = [
   {
-    _id: "banner-1", title: "The Oud Collection", subtitle: "Luxury / 2026",
-    description: "Discover rare Arabian oud perfumes crafted for those who seek the extraordinary.",
+    _id: "banner-1", title: "Authentic Oud Fragrances", subtitle: "Ibadah Perfumes",
+    description: "Premium oud perfumes and attars — crafted with devotion for lasting impression.",
     imageUrl: heroImage(0),
-    link: "/products", buttonText: "Shop Oud", type: "hero", active: true, order: 1,
+    link: "/products", buttonText: "Shop Now", type: "hero", active: true, order: 1,
   },
   {
-    _id: "banner-2", title: "Pure Attar Oils", subtitle: "Traditional Craft",
+    _id: "banner-2", title: "Pure Attar Collection", subtitle: "Traditional Craft",
     description: "Concentrated oud attars distilled using centuries-old Arabian methods.",
     imageUrl: heroImage(1),
     link: "/products?category=attars-oils", buttonText: "Explore Attars", type: "hero", active: true, order: 2,
   },
   {
-    _id: "banner-3", title: "Complimentary Consultation", subtitle: "Via WhatsApp",
-    description: "Not sure which oud suits you? Our fragrance experts guide you to your perfect scent.",
+    _id: "banner-3", title: "Free Fragrance Consultation", subtitle: "Via WhatsApp",
+    description: "Not sure which oud suits you? Our experts will guide you to your perfect scent.",
     imageUrl: unsplashUrl(UNSPLASH.promo, 1200),
+    link: "/contact",
     type: "promotional", active: true, order: 1,
   },
 ];
@@ -339,7 +340,7 @@ export const mockFAQs: FAQ[] = [
 ];
 
 export const mockTestimonials: Testimonial[] = [
-  { _id: "test-1", name: "Ahmed Al-Rashid", role: "Fragrance collector", content: "Royal Cambodian Oud is exceptional — deep, resinous, and lasts over 12 hours on my skin. AM Fragrance understands true oud.", rating: 5, featured: true, avatarUrl: avatarImage(0) },
+  { _id: "test-1", name: "Ahmed Al-Rashid", role: "Fragrance collector", content: "Royal Cambodian Oud is exceptional — deep, resinous, and lasts over 12 hours. Ibadah Perfumes understands true oud.", rating: 5, featured: true, avatarUrl: avatarImage(0) },
   { _id: "test-2", name: "Priya Sharma", role: "Luxury lifestyle blogger", content: "Finally, a store that treats oud with the respect it deserves. The packaging alone feels like unwrapping a treasure.", rating: 5, featured: true, avatarUrl: avatarImage(1) },
   { _id: "test-3", name: "Omar Hassan", role: "Perfume enthusiast", content: "Sultan's Attar is the real deal — one drop and I'm complimented all evening. WhatsApp ordering made it effortless.", rating: 5, featured: true, avatarUrl: avatarImage(2) },
 ];

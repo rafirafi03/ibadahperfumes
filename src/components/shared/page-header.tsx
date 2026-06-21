@@ -18,7 +18,7 @@ export function PageHeader({ label, title, subtitle, className, dark }: PageHead
       )}
     >
       {label && (
-        <p className={cn("label-caps mb-3", dark ? "text-brand-gold" : "text-brand-amber")}>
+        <p className={cn("label-caps mb-3", dark ? "text-white/70" : "text-primary")}>
           {label}
         </p>
       )}
