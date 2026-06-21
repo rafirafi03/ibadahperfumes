@@ -1,5 +1,12 @@
 import type { Product } from "@/types";
-import { APP_NAME, APP_URL } from "@/lib/constants";
+import { APP_NAME, APP_URL, BRAND_LOGO_PATH } from "@/lib/constants";
+
+export const brandLogoMetadata = {
+  url: BRAND_LOGO_PATH,
+  width: 1200,
+  height: 1200,
+  alt: `${APP_NAME} logo`,
+} as const;
 
 export function generateProductJsonLd(product: Product) {
   return {
@@ -33,7 +40,7 @@ export function generateOrganizationJsonLd() {
     "@type": "Organization",
     name: APP_NAME,
     url: APP_URL,
-    logo: `${APP_URL}/logo.png`,
+    logo: `${APP_URL}${BRAND_LOGO_PATH}`,
   };
 }
 

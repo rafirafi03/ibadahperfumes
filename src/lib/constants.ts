@@ -12,6 +12,9 @@ export const INSTAGRAM_HANDLE = process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || "amf
 export const INSTAGRAM_URL =
   process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://www.instagram.com/amfragrancesindia/";
 
+/** Public path to brand logo — used for favicon and link previews */
+export const BRAND_LOGO_PATH = "/ibadah-perfumes-logo.jpg";
+
 export const ORDER_STATUSES = [
   { value: "pending", label: "Pending", color: "bg-yellow-500" },
   { value: "confirmed", label: "Confirmed", color: "bg-blue-500" },

@@ -7,8 +7,8 @@ import { CartDrawer } from "@/components/cart/cart-drawer";
 import { ContactFab } from "@/components/shared/contact-fab";
 import { QueryProvider } from "@/providers/query-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { APP_NAME, APP_URL, BRAND_NAME, BRAND_TAGLINE } from "@/lib/constants";
-import { generateOrganizationJsonLd } from "@/utils/seo";
+import { APP_NAME, APP_URL, BRAND_NAME, BRAND_TAGLINE, BRAND_LOGO_PATH } from "@/lib/constants";
+import { generateOrganizationJsonLd, brandLogoMetadata } from "@/utils/seo";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -31,14 +31,24 @@ export const metadata: Metadata = {
   },
   description: `Discover premium oud perfumes and attars at ${BRAND_NAME} ${BRAND_TAGLINE}. Shop curated Arabian fragrances with WhatsApp ordering.`,
   metadataBase: new URL(APP_URL),
+  icons: {
+    icon: [{ url: BRAND_LOGO_PATH, type: "image/jpeg" }],
+    apple: [{ url: BRAND_LOGO_PATH, type: "image/jpeg" }],
+  },
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: APP_URL,
     siteName: APP_NAME,
+    title: `${APP_NAME} — Premium Oud & Attar Fragrances`,
+    description: `Discover premium oud perfumes and attars at ${BRAND_NAME} ${BRAND_TAGLINE}. Shop curated Arabian fragrances with WhatsApp ordering.`,
+    images: [brandLogoMetadata],
   },
   twitter: {
     card: "summary_large_image",
+    title: `${APP_NAME} — Premium Oud & Attar Fragrances`,
+    description: `Discover premium oud perfumes and attars at ${BRAND_NAME} ${BRAND_TAGLINE}. Shop curated Arabian fragrances with WhatsApp ordering.`,
+    images: [BRAND_LOGO_PATH],
   },
   robots: {
     index: true,

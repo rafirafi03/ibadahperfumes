@@ -4,7 +4,8 @@ import { getProductBySlug } from "@/services/product-service";
 import { getProductReviews, getRelatedProducts } from "@/services/content-service";
 import { ProductDetail } from "@/features/products/product-detail";
 import { generateProductJsonLd, generateBreadcrumbJsonLd } from "@/utils/seo";
-import { APP_URL } from "@/lib/constants";
+import { APP_URL, BRAND_LOGO_PATH } from "@/lib/constants";
+import { brandLogoMetadata } from "@/utils/seo";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -24,14 +25,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title,
       description: description?.slice(0, 160),
-      images: product.imageUrl ? [{ url: product.imageUrl }] : [],
+      images: product.imageUrl ? [{ url: product.imageUrl }] : [brandLogoMetadata],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: description?.slice(0, 160),
-      images: product.imageUrl ? [product.imageUrl] : [],
+      images: product.imageUrl ? [product.imageUrl] : [BRAND_LOGO_PATH],
     },
     alternates: {
       canonical: `${APP_URL}/products/${slug}`,
